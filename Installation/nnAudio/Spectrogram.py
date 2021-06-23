@@ -564,7 +564,7 @@ class MFCC(torch.nn.Module):
         N = x_shape[-1]
 
         v = torch.cat([x[:, :, ::2], x[:, :, 1::2].flip([2])], dim=2)
-        Vc = torch.fft.rfft(v, 1, onesided=False)
+        Vc = torch.fft.fft(v)
 
         # TODO: Can make the W_r and W_i trainable here
         k = - torch.arange(N, dtype=x.dtype, device=x.device)[None, :] * np.pi / (2 * N)
