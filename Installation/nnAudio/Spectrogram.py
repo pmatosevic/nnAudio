@@ -543,8 +543,8 @@ class MFCC(torch.nn.Module):
         for the original implmentation.
         '''
 
-        log_spec = 10.0 * torch.log10(torch.max(S, self.amin))
-        log_spec -= 10.0 * torch.log10(torch.max(self.amin, self.ref))
+        log_spec = 10.0 * torch.log(torch.max(S, self.amin)) / math.log(10)
+        log_spec -= 10.0 * torch.log(torch.max(self.amin, self.ref)) / math.log(10)
         if self.top_db is not None:
             if self.top_db < 0:
                 raise ParameterError('top_db must be non-negative')

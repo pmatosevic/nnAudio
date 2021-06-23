@@ -89,7 +89,8 @@ def downsampling_by_2(x, filterKernel):
     >>> x_down = downsampling_by_2(x, filterKernel)
     """
 
-    x = conv1d(x,filterKernel,stride=2, padding=(filterKernel.shape[-1]-1)//2)
+    padding = int((filterKernel.shape[-1]-1)//2)
+    x = conv1d(x,filterKernel,stride=2, padding=padding)
     return x
 
 
