@@ -5,6 +5,7 @@ Module containing all the spectrogram classes
 # 0.2.0
 
 import torch
+import torch.fft
 import torch.nn as nn
 from torch.nn.functional import conv1d, conv2d, fold
 import scipy # used only in CFP
@@ -563,7 +564,7 @@ class MFCC(torch.nn.Module):
         N = x_shape[-1]
 
         v = torch.cat([x[:, :, ::2], x[:, :, 1::2].flip([2])], dim=2)
-        Vc = torch.rfft(v, 1, onesided=False)
+        Vc = torch.fft.rfft(v, 1, onesided=False)
 
         # TODO: Can make the W_r and W_i trainable here
         k = - torch.arange(N, dtype=x.dtype, device=x.device)[None, :] * np.pi / (2 * N)
